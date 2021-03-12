@@ -1,0 +1,27 @@
+<!-- 
+
+  swiper 标签存在默认高度
+  width :100%
+  height:150px
+  image:存在默认宽度和高度 320*240
+  有一个问题时 swiper 标签的高度是固定的 无法被撑开 无法实现自适应
+  先找出原图的实际宽高 等比例的给 swiper宽度和高度
+  730 x 336 
+  swiper 宽度 / swiper 高度 = 原图的宽度/原图的高度
+  swiper 高度 = 原图的高度 / 原图的宽度 * swiper 宽度
+              = 336 / 730 * 100vw
+ -->
+<swiper indicator-dots autoplay autoplay="1000" indicator-color="#fff" indicator-active-color="#9cc">
+  <block wx:for="{{swiperImgUrls}}" wx:key="url">
+    <swiper-item>
+ <image mode="widthFix" src="{{item.url}}"></image>
+ </swiper-item>
+  </block>
+
+
+</swiper>
+<view class="playlist-container">
+  <block wx:for="{{playlist}}" wx:key="_id">
+    <x-playlist playlist="{{item}}"></x-playlist>
+  </block>
+</view>
