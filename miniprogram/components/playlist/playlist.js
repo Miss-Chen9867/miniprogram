@@ -18,9 +18,6 @@ Component({
   },
   observers:{
     ['playlist.playCount'](val){
-      console.log(val);
-      
-      console.log(this._tranNmuner(val, 2));
       this.setData({
         count:this._tranNmuner(val, 2)
       })
@@ -34,8 +31,6 @@ Component({
     //格式化播放量 param point 保留多少个小数位
     _tranNmuner(num,point){
       let numStr = num.toString().split(".")[0];
-      console.log(numStr.length);
-      
       if (numStr.length<6) {
         return numStr
       }
@@ -47,7 +42,12 @@ Component({
         let decimal = numStr.substring(numStr.length - 8, numStr.length - 8 + point);
         return parseFloat(parseInt(num/100000000)+"."+decimal)+"亿"
       }
-    }
+    },
+    goToMusiclist() {
+      wx.navigateTo({
+        url: `../../pages/musiclist/musiclist?playlistId=${this.properties.playlist.id}`,
+      })
+    },
 
   }
 })

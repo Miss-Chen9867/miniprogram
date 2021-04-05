@@ -1,13 +1,16 @@
 /* components/playlist/playlist.wxss */
 .playlist-container{
-  width: 220rpx;
+  width: 240rpx;
   position: relative;
   padding-bottom:20rpx;
+  margin-left: 5rpx;
+  margin-right: 5rpx;
+
 }
 .playlist-img{
   width: 100%;
-  height: 220rpx;
-  border-radius: 6rpx;
+  height: 240rpx;
+  border-radius: 8rpx;
   
 }
 .playlist-playcount {

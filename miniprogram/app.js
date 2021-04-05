@@ -13,9 +13,55 @@ App({
         traceUser: true,
       })
     }
-    
+    this.getOpenid()
 
     //设置全局属性和方法
-    this.globalData = {}
+    this.globalData = {
+      playingMusicId: -1,
+      openid: -1,
+    }
+   
+  },
+  setPlayMusicId(musicId) {
+    this.globalData.playingMusicId = musicId
+  },
+  
+  getPlayMusicId() {
+    return this.globalData.playingMusicId
+  },
+  async getOpenid() {
+    await wx.cloud.callFunction({
+      name: 'login'
+    }).then((res) => {
+      console.log("login-res",res)
+      const openid = res.result.openid
+      this.globalData.openid = openid
+      console.log('login--openid', this.globalData.openid)
+      if (wx.getStorageSync(openid) == '') {
+        console.log("openid")
+        wx.setStorageSync(openid, [])
+      }
+      console.log("存在 openid")
+    })
+  },
+  
+  checkUpate(){
+    const updateManager = wx.getUpdateManager()
+    // 检测版本更新
+    updateManager.onCheckForUpdate((res)=>{
+      if (res.hasUpdate){
+        updateManager.onUpdateReady(()=>{
+          wx.showModal({
+            title: '更新提示',
+            content: '新版本已经准备好，是否重启应用',
+            success(res){
+              if(res.confirm){
+                updateManager.applyUpdate()
+              }
+            }
+          })
+        })
+      }
+    })
   }
 })
